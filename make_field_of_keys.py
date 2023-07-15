@@ -78,7 +78,7 @@ def add_options_to_custom_field(url, username, password, field_id, context_id, p
 # Auth
 jira_url = 'https://jiraandshit.atlassian.net'
 jira_username = 'carlosmaderajr1995@gmail.com'
-jira_password = 'ATATT3xFfGF0EmyWhIseASUJAPUUQW9MU1l5RF1MxcOqvFIj8KMxjLXYPZvJKO9Atij79pp8UtV1sjhQCqjXu07so7iZ3mjhu9egL9ra_jelhsRyKmUkuO8KwDy8Hgc701mTSoJ1hFVdb1rb9xZb6RseXgYVGggx1XwOeCcA02A-Ncm5xerQQAo=54A1F58A'
+jira_password = ''
 
 # Retrieve project keys
 project_keys = get_jira_project_keys(jira_url, jira_username, jira_password)
