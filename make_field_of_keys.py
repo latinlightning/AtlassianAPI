@@ -6,10 +6,13 @@ def get_jira_project_keys(url, username, password):
     headers = {
         'Content-Type': 'application/json'
     }
-    response = requests.get(api_url, headers=headers, auth=(username, password))
+    response = requests.get(api_url, headers=headers, auth=(username, password), verify=False)
     if response.status_code == 200:
         projects = response.json()
-        project_keys = [project['key'] for project in projects]
+        project_keys = []
+        for project in projects:
+            project = f"{project['name']} : {project['key']}"
+            project_keys.append(project)
         return project_keys
     else:
         print('Failed to retrieve projects. Error:', response.status_code)
@@ -22,11 +25,11 @@ def create_jira_custom_field(url, username, password, field_name):
     }
     payload = {
         'name': field_name,
-        'description': 'Custom field created via API',
+        'description': 'Custom field that automatically updates through webhooks and automations',
         'type': "com.atlassian.jira.plugin.system.customfieldtypes:select",
         'searcherKey': 'com.atlassian.jira.plugin.system.customfieldtypes:multiselectsearcher'
     }
-    response = requests.post(api_url, headers=headers, json=payload, auth=(username, password))
+    response = requests.post(api_url, headers=headers, json=payload, auth=(username, password), verify=False)
     if response.status_code == 201:
         custom_field = response.json()
         print('Custom field created successfully.')
@@ -40,7 +43,7 @@ def get_custom_field_context(url, username, password, field_id):
     headers = {
         'Content-Type': 'application/json'
     }
-    response = requests.get(api_url, headers=headers, auth=(username, password))
+    response = requests.get(api_url, headers=headers, auth=(username, password), verify=False)
     if response.status_code == 200:
         custom_field_context = response.json()
         print('Custom field context retrieved successfully.')
@@ -65,7 +68,7 @@ def add_options_to_custom_field(url, username, password, field_id, context_id, p
     payload = {
         "options": options
     }
-    response = requests.post(api_url, json=payload, headers=headers, auth=(username, password))
+    response = requests.post(api_url, json=payload, headers=headers, auth=(username, password), verify=False)
     response_data = response.json()  # Parse the response data
     if response.status_code == 201:
         print("Options added successfully.")
@@ -76,16 +79,18 @@ def add_options_to_custom_field(url, username, password, field_id, context_id, p
 
 
 # Auth
-jira_url = 'https://jiraandshit.atlassian.net'
-jira_username = 'carlosmaderajr1995@gmail.com'
-jira_password = ''
+jira_url = 'https://dish-wireless-network.atlassian.net'
+jira_username = 'carlos.madera@dish.com'
+jira_password = 'ATATT3xFfGF0hggyoFfjS63mlXJejfQOl-fJhvuutM8PzXDjAWsaSG9m-713JEIv7HMSWsJwt5Dowp41DfYwQtuawFV-Y88Ip-EtrHpZI-PfiTEEW5fUnUgW0yWrAGrehkzSV8ibDov5E0uda8gb-wqqSrQ67g6q5DHJ4sp-PLmwGM1tBa_uvg0=14D18620'
 
 # Retrieve project keys
 project_keys = get_jira_project_keys(jira_url, jira_username, jira_password)
+print(project_keys)
+
 
 if project_keys:
     # Create custom field
-    custom_field_id = create_jira_custom_field(jira_url, jira_username, jira_password, "My Custom Field")
+    custom_field_id = create_jira_custom_field(jira_url, jira_username, jira_password, "Project Name : Key")
     
     if custom_field_id:
         # Get custom field context
