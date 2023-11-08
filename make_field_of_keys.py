@@ -79,9 +79,9 @@ def add_options_to_custom_field(url, username, password, field_id, context_id, p
 
 
 # Auth
-jira_url = 'https://dish-wireless-network.atlassian.net'
-jira_username = 'carlos.madera@dish.com'
-jira_password = 'ATATT3xFfGF0hggyoFfjS63mlXJejfQOl-fJhvuutM8PzXDjAWsaSG9m-713JEIv7HMSWsJwt5Dowp41DfYwQtuawFV-Y88Ip-EtrHpZI-PfiTEEW5fUnUgW0yWrAGrehkzSV8ibDov5E0uda8gb-wqqSrQ67g6q5DHJ4sp-PLmwGM1tBa_uvg0=14D18620'
+jira_url = 'https://xxxxxxx.atlassian.net'
+jira_username = 'an email'
+jira_password = 'an api key'
 
 # Retrieve project keys
 project_keys = get_jira_project_keys(jira_url, jira_username, jira_password)
